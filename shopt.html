@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Shopping Haven</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #f7f7f7;
+    }
+
+    h1 {
+      font-family: 'Georgia', serif;
+      font-size: 50px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .image-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      margin: 0 20px;
+    }
+
+    .centered-text {
+      display: none;
+      text-align: center;
+      font-size: 42px;
+      font-family: 'Verdana', sans-serif;
+      font-weight: 600;
+      color: #333;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Shopping Haven</h1>
+
+<div class="image-row">
+  <img id="firstImage" src="https://raw.githubusercontent.com/kritisen/babyhaven/refs/heads/main/images/baby-stroller-cluttered.jpg" alt="Stroller Image 1">
+  <img id="secondImage" src="https://raw.githubusercontent.com/kritisen/babyhaven/refs/heads/main/images/baby-stroller-cluttered.jpg" alt="Stroller Image 2">
+  <img id="thirdImage" src="https://raw.githubusercontent.com/kritisen/babyhaven/refs/heads/main/images/baby-stroller-cluttered.jpg" alt="Stroller Image 3">
+</div>
+
+<div class="centered-text">Shop smarter; Not longer</div>
+
+<script>
+  $(document).ready(function() {
+    // After 2 seconds, change only the middle image to the selected image
+    setTimeout(function() {
+      $("#secondImage").attr("src", "https://raw.githubusercontent.com/kritisen/babyhaven/refs/heads/main/images/baby-stroller-selected.jpg");
+    }, 2000); // 2 seconds
+
+    // After 4 seconds, hide all images and show the centered text
+    setTimeout(function() {
+      $(".image-row").fadeOut(400, function() {
+        $(".centered-text").fadeIn(600); // Show the text
+      });
+    }, 4000); // 4 seconds
+  });
+</script>
+
+</body>
+</html>
