@@ -41,6 +41,10 @@
       color: #333;
       margin-top: 50px;
     }
+
+    .single-image {
+      display: none; /* Initially hide the single image */
+    }
   </style>
 </head>
 <body>
@@ -53,18 +57,22 @@
   <img id="thirdImage" src="https://raw.githubusercontent.com/kritisen/babyhaven/refs/heads/main/images/baby-stroller-cluttered.jpg" alt="Stroller Image 3">
 </div>
 
+<img id="selectedImage" class="single-image" src="https://raw.githubusercontent.com/kritisen/babyhaven/refs/heads/main/images/baby-stroller-selected.jpg" alt="Selected Stroller Image">
+
 <div class="centered-text">Shop smarter; Not longer</div>
 
 <script>
   $(document).ready(function() {
-    // After 2 seconds, change only the middle image to the selected image
-    setTimeout(function() {
-      $("#secondImage").attr("src", "https://raw.githubusercontent.com/kritisen/babyhaven/refs/heads/main/images/baby-stroller-selected.jpg");
-    }, 2000); // 2 seconds
-
-    // After 4 seconds, hide all images and show the centered text
+    // After 2 seconds, hide the entire image row and show the selected image
     setTimeout(function() {
       $(".image-row").fadeOut(400, function() {
+        $("#selectedImage").fadeIn(400); // Show the selected image
+      });
+    }, 2000); // 2 seconds
+
+    // After 4 seconds, show the centered text and hide the selected image
+    setTimeout(function() {
+      $("#selectedImage").fadeOut(400, function() {
         $(".centered-text").fadeIn(600); // Show the text
       });
     }, 4000); // 4 seconds
