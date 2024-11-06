@@ -1,85 +1,201 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Shopt</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  <style>
-    body {
-      font-family: 'Lora', serif; /* Body font */
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      background-color: #f7f7f7;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Text and Image Layout with Timed Fade Effect</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    h1 {
-      font-family: 'Playfair Display', serif; /* Heading font */
-      font-size: 50px;
-      font-weight: bold;
-      margin-top: 20px;
-      color: #333; /* Darker color for contrast */
-    }
+        /* Main container to hold the two sections */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
 
-    .image-row {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-    }
+        /* Left Section for Text - 40% width */
+        .text-section {
+            flex: 4; /* Use 40% of the space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
 
-    img {
-      width: 300px;
-      height: auto;
-      margin: 0 20px;
-    }
+        /* Typing Effect Styling */
+        .typing {
+            font-size: 24px;
+            color: #333;
+            border-right: 2px solid #333; /* Cursor effect */
+            white-space: nowrap;          /* Prevent text wrapping */
+            overflow: hidden;             /* Hide overflow text */
+        }
 
-    .centered-text {
-      display: none;
-      text-align: center;
-      font-size: 42px;
-      font-family: 'Playfair Display', serif; /* Same as heading */
-      font-weight: 600;
-      color: #333;
-      margin-top: 50px;
-    }
+        /* Right Section for Images - 60% width */
+        .image-section {
+            flex: 6; /* Use 60% of the space */
+            width: 100%;       /* Make sure it takes the full width */
+            height: 300px;     /* Limit the height of the image box */
+            position: relative; /* Position relative for overlayed images */
+            background-color: #f7f7f7;
+            overflow: hidden;
+        }
 
-    .single-image {
-      display: none; /* Initially hide the single image */
-    }
-  </style>
+        /* Styling for fade-in images with fast transition */
+        .image-section #fadeInImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;   /* Maintain aspect ratio */
+            opacity: 0;          /* Start invisible */
+            transition: opacity 0.5s ease; /* Fast fade transition for fade-in image */
+        }
+
+        /* Styling for fade-out images with slow transition and scaling */
+        .image-section #fadeOutImage {
+            position: absolute;
+            top: 50%;           /* Center vertically */
+            left: 50%;          /* Center horizontally */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;   /* Maintain aspect ratio */
+            opacity: 0;         /* Start invisible */
+            transform: translate(-50%, -50%) scale(0.6); /* Center and scale down to 60% */
+            transition: opacity 2s ease, transform 2s ease; /* Slow fade transition for fade-out image */
+        }
+
+        /* Responsive layout for mobile */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack sections vertically */
+            }
+
+            .text-section {
+                margin-bottom: 20px; /* Space between text and image sections */
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Left Section with Typing Text -->
+        <div class="text-section">
+            <div class="typing" id="typing"></div>
+        </div>
 
-<h1>Shopt</h1>
+        <!-- Right Section for Images -->
+        <div class="image-section" id="image-section">
+            <img id="fadeInImage" src="" alt="Fade In Image">
+            <img id="fadeOutImage" src="" alt="Fade Out Image">
+        </div>
+    </div>
 
-<div class="image-row">
-  <img id="firstImage" src="https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-cluttered.jpg" alt="Stroller Image 1">
-  <img id="secondImage" src="https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-cluttered.jpg" alt="Stroller Image 2">
-  <img id="thirdImage" src="https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-cluttered.jpg" alt="Stroller Image 3">
-</div>
+    <script>
+        // Array of texts to display in sequence
+        const texts = ["This is the first text.", "Here comes the second one.", "And finally, the third text."];
 
-<img id="selectedImage" class="single-image" src="https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-selected.jpg" alt="Selected Stroller Image">
+        // Updated arrays of images for fade-in and fade-out effects
+        const fadeInImages = [
+            "https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-cluttered-1.jpg",
+            "https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-cluttered-1.jpg",
+            "https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-cluttered-1.jpg"
+        ];
+        const fadeOutImages = [
+            "https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-uncluttered-2.jpg",
+            "https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-uncluttered-2.jpg",
+            "https://raw.githubusercontent.com/shopxai/shopt/refs/heads/main/images/baby-stroller-uncluttered-2.jpg"
+        ];
 
-<div class="centered-text">Shop smarter; Not longer</div>
+        // Indexes to track the current text and image
+        let textIndex = 0;
+        let imageIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
 
-<script>
-  $(document).ready(function() {
-    // After 2 seconds, hide the entire image row and show the selected image
-    setTimeout(function() {
-      $(".image-row").fadeOut(400, function() {
-        $("#selectedImage").fadeIn(400); // Show the selected image
-      });
-    }, 2000); // 2 seconds
+        // Get elements
+        const typingElement = document.getElementById("typing");
+        const fadeInImageElement = document.getElementById("fadeInImage");
+        const fadeOutImageElement = document.getElementById("fadeOutImage");
 
-    // After 4 seconds, show the centered text and hide the selected image
-    setTimeout(function() {
-      $("#selectedImage").fadeOut(400, function() {
-        $(".centered-text").fadeIn(600); // Show the text
-      });
-    }, 4000); // 4 seconds
-  });
-</script>
+        // Typing and deleting speeds (in milliseconds)
+        const typingSpeed = 100;
+        const deletingSpeed = 50;
+        const pauseTime = 1500;
+        const deletionPauseTime = 1000; // New pause after deletion
 
+        // Function to handle the typing effect
+        function type() {
+            let currentText = texts[textIndex];
+
+            if (!isDeleting) {
+                // Show fade-in image at the start of typing
+                if (charIndex === 0) {
+                    fadeInImageElement.src = fadeInImages[imageIndex];
+                    fadeInImageElement.style.opacity = '1'; // Fast fade-in
+                    fadeOutImageElement.style.opacity = '0'; // Hide fade-out image
+                }
+
+                // Display characters one-by-one
+                typingElement.textContent = currentText.slice(0, charIndex++);
+
+                // Check if full text is typed
+                if (charIndex > currentText.length) {
+                    isDeleting = true;
+                    setTimeout(type, pauseTime);
+
+                    // Show fade-out image with scaling effect
+                    fadeOutImageElement.src = fadeOutImages[imageIndex];
+                    fadeOutImageElement.style.transform = 'translate(-50%, -50%) scale(0.6)'; // Reset to 60% scale
+                    fadeOutImageElement.style.opacity = '1'; // Show image with fade-in effect
+                    
+                    // Using requestAnimationFrame to let the scale reset take effect
+                    requestAnimationFrame(() => {
+                        fadeOutImageElement.style.transform = 'translate(-50%, -50%) scale(1)'; // Scale to 100%
+                    });
+
+                    return;
+                }
+            } else {
+                // Start deleting characters one-by-one
+                typingElement.textContent = currentText.slice(0, charIndex--);
+
+                // Check if text is fully deleted
+                if (charIndex < 0) {
+                    // Hide fade-in image immediately
+                    fadeInImageElement.style.opacity = '0';
+                    // Fade out the fade-out image without scaling down
+                    fadeOutImageElement.style.opacity = '0'; // Just fade out
+
+                    // Pause before starting the next text
+                    setTimeout(() => {
+                        isDeleting = false;
+                        textIndex = (textIndex + 1) % texts.length;
+                        imageIndex = (imageIndex + 1) % fadeInImages.length;
+                        charIndex = 0;
+                        fadeOutImageElement.style.transform = 'translate(-50%, -50%) scale(0.6)'; // Reset scale for next cycle
+                        fadeOutImageElement.style.opacity = '0'; // Reset opacity for the next cycle
+                        type(); // Restart typing after pause
+                    }, deletionPauseTime);
+
+                    return;
+                }
+            }
+
+            setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+        }
+
+        // Start typing and image effects
+        type();
+    </script>
 </body>
 </html>
