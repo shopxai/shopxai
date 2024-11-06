@@ -35,7 +35,7 @@
             font-size: 24px;
             color: #333;
             border-right: 2px solid #333; /* Cursor effect */
-            white-space: nowrap;          /* Prevent text wrapping */
+            white-space: wrap;          /* Prevent text wrapping */
             overflow: hidden;             /* Hide overflow text */
         }
 
@@ -74,10 +74,28 @@
             transition: opacity 2s ease, transform 2s ease; /* Slow fade transition for fade-out image */
         }
 
+        /* Styling for the section text */
+        .section-text {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        /* Styling for the slogan section text */
+        .section-text .slogan {
+            font-size: 24px;
+       }
+
+        /* Styling for the brand section text */
+        /* Larger text for "Shopt" */
+        .section-text .brand {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
         /* Responsive layout for mobile */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column; /* Stack sections vertically */
+                height: 40vh;
             }
 
             .text-section {
@@ -87,6 +105,10 @@
     </style>
 </head>
 <body>
+    <div class="section-text" id="Brand">
+        <div class="brand">Shopt</div>
+        <div class="slogan">Shop smarter. Not longer.</div>
+    </div>
     <div class="container">
         <!-- Left Section with Typing Text -->
         <div class="text-section">
@@ -99,7 +121,6 @@
             <img id="fadeOutImage" src="" alt="Fade Out Image">
         </div>
     </div>
-
     <script>
         // Array of texts to display in sequence
         const texts = [
