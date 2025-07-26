@@ -5,8 +5,6 @@
 layout: home
 ---
 
-# Shopt
-
 Welcome to Shopt, the shopping app that makes discovering and buying products effortless.
 
 <div class="hero">
