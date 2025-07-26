@@ -7,12 +7,12 @@ layout: home
 
 # Shopt
 
-Welcome to Shopt, the iOS shopping app that makes discovering and buying products effortless.
+Welcome to Shopt, the shopping app that makes discovering and buying products effortless.
 
 <div class="hero">
   <img src="/assets/shopt-logo.png" alt="Shopt app logo" class="app-logo">
   <h1>Shop Smarter. Shop Faster. Shop Shopt.</h1>
-  <p class="subtitle">The ultimate shopping experience, exclusively for iOS.</p>
+  <p class="subtitle">The ultimate shopping experience.</p>
   <a href="#download" class="cta-btn">Download on the App Store</a>
 </div>
 
@@ -21,13 +21,13 @@ Welcome to Shopt, the iOS shopping app that makes discovering and buying product
     <h2>Curated Products</h2>
     <p>Discover trending and handpicked items tailored just for you.</p>
   </div>
-  <div class="feature">
+  <!-- <div class="feature">
     <h2>Seamless Checkout</h2>
     <p>Fast, secure, and easy checkout with Apple Pay integration.</p>
-  </div>
+  </div> -->
   <div class="feature">
-    <h2>iOS First</h2>
-    <p>Designed exclusively for iPhone and iPad. Lightning fast and beautiful on every device.</p>
+    <h2>Best recommendations</h2>
+    <p>No advertisements. Just the best recommendations.</p>
   </div>
 </div>
 
@@ -35,12 +35,12 @@ Welcome to Shopt, the iOS shopping app that makes discovering and buying product
   <img src="/assets/shopt-app-preview.png" alt="Shopt app preview" class="app-screenshot">
 </div>
 
-<div id="download" class="download-section">
+<!-- <div id="download" class="download-section">
   <a href="#" class="app-store-badge">
     <img src="/assets/app-store-badge.svg" alt="Download on the App Store">
   </a>
   <p class="note">Coming soon to the App Store</p>
-</div>
+</div> -->
 
 <style>
 .hero {
